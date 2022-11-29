@@ -1,24 +1,9 @@
 <!-- Milestone 1
 Creare un form che invii in GET la lunghezza della password. Una nostra funzione utilizzerà questo dato per generare una password casuale (composta da lettere, lettere maiuscole, numeri e simboli) da restituire all’utente. Scriviamo tutto (logica e layout) in un unico file index.php -->
+<!-- Milestone 2
+Verificato il corretto funzionamento del nostro codice, spostiamo la logica in un file functions.php che includeremo poi nella pagina principale -->
 
-<?php
-function generatePassword($lenghtPass)
-{
-    $characters = '.-_+*#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $passwordString = '';
-    for ($i = 0; $i < $lenghtPass; $i++) {
-        $passwordString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $passwordString;
-}
-$passwordGenereator = isset($_GET["pass"]);
-var_dump($passwordGenereator);
-if ($passwordGenereator) {
-    echo generatePassword($_GET["pass"]);
-    # code...
-}
-?>
+
 
 <!doctype html>
 <html lang="en">
@@ -29,22 +14,35 @@ if ($passwordGenereator) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" href="./style.css">
+
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 </head>
 
-<body>
+<body style="background-color: #001632;">
     <header>
-        <!-- place navbar here -->
+        <h1 class="text-center">Strong Password Generator</h1>
+        <h3 class="text-center">Genera una password sicura</h3>
     </header>
     <main>
-        <h1>password generator</h1>
-        <div class="mb-3">
-            <form action="index.php" method="get">
-                <label for="" class="form-label">lunghezza password</label>
-                <input type="number" class="form-control" name="pass" id="pass" aria-describedby="helpId">
-                <button type="submit">richiedi</button>
+        <div class="p-5">
+            <div class="container">
+                <form action="index.php" method="get">
+                    <div class=" p-5 d-flex justify-content-around">
+                        <label>Lunghezza password: </label>
+                        <input type="number" name="pass" id="pass">
+                    </div>
+                    <button class="btn btn-primary ms-5 mb-5" type="submit">invia</button>
+                    <button class="btn btn-secondary mb-5" type="reset">annulla</button>
+                    <p class="text-center p-5">
+                        <?php
+                        include __DIR__ . '../partials/functions.php'
+                        ?>
+                    </p>
+            </div>
+
             </form>
         </div>
     </main>
